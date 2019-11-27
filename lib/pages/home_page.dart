@@ -1,10 +1,11 @@
 import 'package:flutter/material.dart';
 
-import 'package:demo_app/api/db_api.dart';
 import 'package:demo_app/blocs/bloc_provider.dart';
 import 'package:demo_app/blocs/categorias_bloc.dart';
+import 'package:demo_app/blocs/factores_bloc.dart';
 import 'package:demo_app/models/categorias.dart';
-
+import 'package:demo_app/models/factores.dart';
+import 'package:demo_app/pages/selected_page.dart';
 
 class HomePage extends StatelessWidget {
 
@@ -24,7 +25,12 @@ class HomePage extends StatelessWidget {
                         itemCount: categorias.data.length,
                         itemBuilder: (BuildContext context , int index){
                           return ListTile (
-                            //onTap: ,
+                            onTap: () => Navigator.of(context).push( MaterialPageRoute (
+                              builder: (BuildContext context) => BlocProvider<FactoresBloc> (
+                                bloc: FactoresBloc(categorias.data[index]),
+                                child: SelectedCategoryPage(),
+                              )
+                            )),
                             title: Text (categorias.data[index].nombre , style: TextStyle(fontSize: 34.0)),
                           );
                         }  
