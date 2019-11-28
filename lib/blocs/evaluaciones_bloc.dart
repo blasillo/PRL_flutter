@@ -10,7 +10,7 @@ import 'package:demo_app/api/db_api.dart';
 
 class EvaluacionesBloc extends BlocBase {
 
-  Evaluacion evaluacion = Evaluacion();
+  Evaluacion _evaluacion = Evaluacion();
 
 
   final _factoresCtrl = BehaviorSubject<List<FactorRiesgo>>();
@@ -26,6 +26,21 @@ class EvaluacionesBloc extends BlocBase {
   void dispose () {
      _factoresCtrl.close();
      _countCtrl.close();
+  }
+
+  void addFactor (FactorRiesgo factor) {
+    final factores = _evaluacion.factores;
+
+    if ( factores.contains( factor )) {
+       // factores.add( factor );
+    }
+    else {
+      factores.add( factor );
+      
+    }
+    _evaluacion.itemCount++;
+    _inCount.add( _evaluacion.itemCount );
+    _inFactores.add(factores);
   }
 
 }

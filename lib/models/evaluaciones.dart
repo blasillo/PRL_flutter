@@ -6,5 +6,5 @@ class Evaluacion {
   int itemCount = 0;
 
   List <FactorRiesgo> factores = List();
-  
+     
 }

@@ -1,3 +1,4 @@
+import 'package:demo_app/blocs/evaluaciones_bloc.dart';
 import 'package:demo_app/ui/evaluacion_button.dart';
 import 'package:flutter/material.dart';
 
@@ -11,6 +12,9 @@ class SelectedCategoryPage extends StatelessWidget {
   Widget build (BuildContext context) {
     
     final FactoresBloc _factoresBloc = BlocProvider.of<FactoresBloc>(context);
+    final EvaluacionesBloc _evaluacionesBloc =  BlocProvider.of<EvaluacionesBloc>(context);
+    
+
 
     return Scaffold(
       appBar: AppBar( 
@@ -25,7 +29,13 @@ class SelectedCategoryPage extends StatelessWidget {
               gridDelegate: SliverGridDelegateWithFixedCrossAxisCount ( crossAxisCount:  2),
               itemCount: snapshot.data.length,
               itemBuilder: (BuildContext context, int index){
-                return Center(child: Text(snapshot.data[index].nombre));
+                final factor = snapshot.data[index];
+                return InkWell(
+                  onTap: () => { _evaluacionesBloc.addFactor (factor)},
+                  child: Center (
+                    child:Text (factor.nombre)
+                  )
+                );
               },
             );
           }

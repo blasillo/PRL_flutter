@@ -24,14 +24,10 @@ class HomePage extends StatelessWidget {
               return ListView.builder( 
                         itemCount: categorias.data.length,
                         itemBuilder: (BuildContext context , int index){
+                          Categoria categoria = categorias.data[index];
                           return ListTile (
-                            onTap: () => Navigator.of(context).push( MaterialPageRoute (
-                              builder: (BuildContext context) => BlocProvider<FactoresBloc> (
-                                bloc: FactoresBloc(categorias.data[index]),
-                                child: SelectedCategoryPage(),
-                              )
-                            )),
-                            title: Text (categorias.data[index].nombre , style: TextStyle(fontSize: 34.0)),
+                            onTap: () => navegarACategoria (context, categoria),
+                            title: Text (categoria.nombre , style: TextStyle(fontSize: 34.0)),
                           );
                         }  
               );     
@@ -41,6 +37,16 @@ class HomePage extends StatelessWidget {
         )
           
     );
+  }
+
+
+  void navegarACategoria(BuildContext context , Categoria categoria ){
+    Navigator.of(context).push( MaterialPageRoute (
+                              builder: (BuildContext context) => BlocProvider<FactoresBloc> (
+                                bloc: FactoresBloc(categoria),
+                                child: SelectedCategoryPage(),
+                              )
+                            ));
   }
 
 }
