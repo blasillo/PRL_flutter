@@ -1,16 +1,22 @@
 import 'package:flutter/material.dart';
 import 'package:demo_app/pages/home_page.dart';
 import 'package:demo_app/blocs/bloc_provider.dart';
+import 'package:demo_app/blocs/evaluaciones_bloc.dart';
 import 'package:demo_app/blocs/categorias_bloc.dart';
 
-void main() => runApp(MyApp());
+void main() => runApp(
+  BlocProvider<EvaluacionesBloc> (
+    bloc: EvaluacionesBloc() ,
+    child: MyApp())
+);
 
 class MyApp extends StatelessWidget {
   // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      title: 'Flutter Demo',
+      debugShowCheckedModeBanner: false,
+      title: 'Demo PRL SDD Va',
       theme: ThemeData(
         // This is the theme of your application.
         //
@@ -23,7 +29,7 @@ class MyApp extends StatelessWidget {
         // is not restarted.
         primarySwatch: Colors.blue,
       ),
-      home: BlocProvider (
+      home: BlocProvider<CategoriasBloc> (
         bloc: CategoriasBloc(),
         child: HomePage()
       ),

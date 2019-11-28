@@ -1,3 +1,4 @@
+import 'package:demo_app/ui/evaluacion_button.dart';
 import 'package:flutter/material.dart';
 
 import 'package:demo_app/blocs/bloc_provider.dart';
@@ -12,7 +13,10 @@ class SelectedCategoryPage extends StatelessWidget {
     final FactoresBloc _factoresBloc = BlocProvider.of<FactoresBloc>(context);
 
     return Scaffold(
-      appBar: AppBar( title: Text ('Demo PRL SDD Va')) ,
+      appBar: AppBar( 
+        title: Text ('Demo PRL SDD Va'),
+        actions: <Widget>[EvaluacionButton()],
+        ) ,
       body: StreamBuilder<List<FactorRiesgo>>(
         stream: _factoresBloc.outFactores ,
         builder: (context, snapshot){
