@@ -26,14 +26,31 @@ class SelectedCategoryPage extends StatelessWidget {
         builder: (context, snapshot){
           if (snapshot.hasData) {
             return GridView.builder(
-              gridDelegate: SliverGridDelegateWithFixedCrossAxisCount ( crossAxisCount:  2),
+              gridDelegate: SliverGridDelegateWithFixedCrossAxisCount ( crossAxisCount: 2),
               itemCount: snapshot.data.length,
               itemBuilder: (BuildContext context, int index){
                 final factor = snapshot.data[index];
                 return InkWell(
                   onTap: () => { _evaluacionesBloc.addFactor (factor)},
-                  child: Center (
-                    child:Text (factor.nombre)
+                  child: Column( // Replace with a Row for horizontal icon + text
+                    children: <Widget>[
+                        Container(
+                            height: 120,
+                            width: 120,
+                            decoration: BoxDecoration(
+                                borderRadius: BorderRadius.all(Radius.circular(32.0)),
+                                color: Colors.redAccent,
+                                border: new Border.all(
+                                  color: Colors.black,
+                                  width: 4.0,
+
+                                ),
+                                image: DecorationImage (
+                                  image: AssetImage('assets/imagenes/'+ factor.id + '_V-01.png') ,
+                                  fit: BoxFit.cover,
+                                ))),
+                //Icon(Icons.play_arrow, color: Colors.black,),
+                    Text (factor.nombre) ]
                   )
                 );
               },

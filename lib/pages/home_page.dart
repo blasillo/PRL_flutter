@@ -21,7 +21,43 @@ class HomePage extends StatelessWidget {
           stream: _categoriasBloc.outCategorias,
           builder: (BuildContext context , AsyncSnapshot<List<Categoria>> categorias ){
             if (categorias.hasData) {
-              return ListView.builder( 
+              return GridView.builder(
+                gridDelegate: SliverGridDelegateWithFixedCrossAxisCount ( crossAxisCount:  2 ),
+                itemCount: categorias.data.length,
+                itemBuilder: (BuildContext context, int index){
+                  final Categoria categoria = categorias.data[index];
+                  return Container(
+                            height: 120.0,
+                            margin: EdgeInsets.symmetric(
+                                  vertical: 16.0,
+                                  horizontal: 12.0 ),
+                        child: Center(
+                      child: Card(
+                          child: Container (
+                            width: 220.0,
+                            height:220.0,
+                            child: InkWell(
+                               onTap: () => navegarACategoria (context, categoria),
+                               child: Column( // Replace with a Row for horizontal icon + text
+                               children: <Widget>[
+                                  Container(
+                                      height: 150,
+                                      width: 150,
+                                      decoration: BoxDecoration(
+                                          image: DecorationImage (
+                                             image: AssetImage('assets/imagenes/01_V-01.png') ,
+                                             fit: BoxFit.cover,
+                                  ))),
+                                  //Icon(Icons.play_arrow, color: Colors.black,),
+                                  Text (categoria.nombre , style: TextStyle(fontSize: 20.0, color: Colors.black))
+                  ]
+                      )))
+                  )));
+                },
+              );
+
+
+              /*ListView.builder(
                         itemCount: categorias.data.length,
                         itemBuilder: (BuildContext context , int index){
                           Categoria categoria = categorias.data[index];
@@ -30,7 +66,7 @@ class HomePage extends StatelessWidget {
                             title: Text (categoria.nombre , style: TextStyle(fontSize: 34.0)),
                           );
                         }  
-              );     
+              );    */
             }
             else return Text ('No hay datos');
           }
